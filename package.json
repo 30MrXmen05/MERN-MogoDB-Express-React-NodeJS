@@ -5,11 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server":"nodemon server"
+    "server": "nodemon server"
   },
   "author": "Mihir_Soni",
   "license": "MIT",
   "dependencies": {
+    "@ng-toolkit/universal": "^7.1.2",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
     "express": "^4.17.1",
