@@ -28,35 +28,35 @@ const ProfileSchema = new mongoose.Schema({
   githubusername: {
     type: String,
   },
-  // expirence: [
-  //   {
-  //     title: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     company: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     location: {
-  //       type: String,
-  //     },
-  //     from: {
-  //       type: Date,
-  //       required: true,
-  //     },
-  //     to: {
-  //       type: Date,
-  //     },
-  //     current: {
-  //       type: Boolean,
-  //       default: false,
-  //     },
-  //     description: {
-  //       type: String,
-  //     },
-  //   },
-  // ],
+  education: [
+    {
+      school: {
+        type: String,
+        required: true,
+      },
+      college: {
+        type: String,
+        required: true,
+      },
+      fieldofstudy: {
+        type: String,
+      },
+      from: {
+        type: Date,
+        required: true,
+      },
+      to: {
+        type: Date,
+      },
+      current: {
+        type: Boolean,
+        default: false,
+      },
+      description: {
+        type: String,
+      },
+    },
+  ],
   experience: [
     {
       title: {
