@@ -10,6 +10,7 @@ import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 import Dashboard from "./Components/dashboard/Dashboard";
 import PrivateRoute from "./Components/routing/PrivateRoute";
+import CreateProfile from "./Components/profile-forms/CreateProfile";
 
 //Redux is added here...
 import { Provider } from "react-redux";
@@ -43,6 +44,15 @@ const App = () => {
                 element={
                   <PrivateRoute>
                     <Dashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                exact
+                path="/profile-create"
+                element={
+                  <PrivateRoute>
+                    <CreateProfile />
                   </PrivateRoute>
                 }
               />
