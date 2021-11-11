@@ -8,6 +8,8 @@ import Register from "./Components/auth/Register";
 import Alert from "./Components/Layouts/Alert";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
+import Dashboard from "./Components/dashboard/Dashboard";
+import PrivateRoute from "./Components/routing/PrivateRoute";
 
 //Redux is added here...
 import { Provider } from "react-redux";
@@ -35,6 +37,15 @@ const App = () => {
             <Routes>
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/register" element={<Register />} />
+              <Route
+                exact
+                path="/dashboard"
+                element={
+                  <PrivateRoute>
+                    <Dashboard />
+                  </PrivateRoute>
+                }
+              />
             </Routes>
           </section>
         </Fragment>
@@ -44,3 +55,5 @@ const App = () => {
 };
 
 export default App;
+
+//npm run dev "for start project..."
