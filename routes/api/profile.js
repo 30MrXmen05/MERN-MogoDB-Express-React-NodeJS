@@ -36,7 +36,7 @@ router.get("/me", auth, async (req, res) => {
 //@access   Private
 
 router.post(
-  "/",
+  "/editprofile",
   [
     auth,
     [

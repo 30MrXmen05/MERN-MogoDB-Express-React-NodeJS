@@ -1,6 +1,7 @@
 import axios from "axios";
+import { Navigate } from "react-router";
 import { setAlert } from "./alert";
-import { GET_PROFILE, PROFILE_ERROR } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from "./types";
 
 //GET CURRENT USER...
 export const getCurrentProfile = () => async (dispatch) => {
@@ -20,16 +21,21 @@ export const getCurrentProfile = () => async (dispatch) => {
 
 //Create or Update Profile...
 export const createProfile =
-  (formData, history, edit = false) =>
+  (formData, edit = false, token) =>
   async (dispatch) => {
     try {
       const config = {
         headers: {
-          "content-type": "application/json",
+          // "Content-Type": "application/json",
+          "X-auth-token": token,
         },
       };
 
-      const res = await axios.post("/api/profile", formData, config);
+      const res = await axios.post(
+        "/api/profile/editprofile",
+        formData,
+        config,
+      );
       dispatch({
         type: GET_PROFILE,
         payload: res.data,
@@ -45,7 +51,7 @@ export const createProfile =
       );
 
       if (!edit) {
-        history.push("/dashboard");
+        <Navigate to="/dashboard" />;
       }
     } catch (err) {
       const errors = err.response.data.errors;
