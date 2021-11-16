@@ -40,12 +40,15 @@ router.post(
   [
     auth,
     [
-      check("status", "status is required").not().isEmpty(),
-      check("skills", "skills is required").not().isEmpty(),
+      check("status", "status is required").isEmpty(),
+      check("skills", "skills is required").isEmpty(),
     ],
   ],
   async (req, res) => {
+    // console.log(req);
+    // console.log(req.body.formData.company);
     const errors = validationResult(req);
+    // console.log("Errors", errors);
     if (!errors.isEmpty()) {
       return res.status(400).json({ error: errors.array() });
     }
@@ -63,7 +66,9 @@ router.post(
       twitter,
       instragarm,
       linkdin,
-    } = req.body;
+    } = req.body.formData;
+
+    // console.log("data passed", { skills });
 
     //Get Profile ready
     const profilefields = {};
@@ -86,22 +91,19 @@ router.post(
     if (instragarm) profilefields.social.instragarm = instragarm;
     if (linkdin) profilefields.social.linkdin = linkdin;
 
-    try {
-      let profile = await Profile.findOne({ user: req.user.id });
-      if (profile) {
-        //update
-        profile = await Profile.findByIdAndUpdate(
-          { user: req.user.id },
-          { $set: profilefields },
-          { new: true },
-        );
-        return res.json(profile);
-      }
+    // console.log("Profile fields check", profilefields);
 
-      //Create
-      profile = new Profile(profilefields);
-      await profile.save();
-      res.json(profile);
+    try {
+      // update
+      let profile = await Profile.findByIdAndUpdate(
+        req.user.id,
+        profilefields,
+        {
+          upsert: true,
+        },
+      );
+
+      return res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

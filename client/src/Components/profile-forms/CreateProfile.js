@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
+import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { createProfile } from "../../actions/profile";
 
-const CreateProfile = ({ createProfile, token }) => {
+const CreateProfile = ({ createProfile, auth, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     company: "",
     website: "",
@@ -19,6 +20,8 @@ const CreateProfile = ({ createProfile, token }) => {
     linkdin: "",
   });
   const [displaySocialInputs, toogleSocialInputs] = useState(false);
+  const [isRegistred, setIsRegistred] = useState(false);
+  console.log("token", auth);
 
   const {
     company,
@@ -36,14 +39,17 @@ const CreateProfile = ({ createProfile, token }) => {
   } = formData;
 
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const createProfileAuth = await createProfile(formData, token);
-    console.log("token", token);
-    console.log("createProfileAuth", createProfileAuth);
+    await createProfile(formData, auth);
+    setIsRegistred(true);
   };
+
+  if (isRegistred) {
+    return <Navigate to="/dashboard" />;
+  }
   return (
     <Fragment>
       <h1 className="large text-primary">Create Your Profile</h1>
@@ -220,9 +226,12 @@ const CreateProfile = ({ createProfile, token }) => {
 CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   token: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 const mapStateToProps = (state) => ({
-  token: state.auth.token,
+  // token: state.auth.token,
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { createProfile })(CreateProfile);
