@@ -1,6 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://admin123:admin123@devconnectore.geogy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "thisissecretekey",
-  "githubclientid": "c378cced8143f10b0a92",
-  "githubSecret": "8e4c41a24d4c11dfcb47e0140c96a7797036b02b"
-}
