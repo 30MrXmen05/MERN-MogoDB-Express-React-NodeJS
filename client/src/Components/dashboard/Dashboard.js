@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import { getCurrentProfile } from "../../actions/profile";
 import { Link } from "react-router-dom";
+import DashboardAction from "./DashboardAction";
 
 const Dashboard = ({
   getCurrentProfile,
@@ -26,10 +27,7 @@ const Dashboard = ({
       </p>
       {profile !== null ? (
         <Fragment>
-          have a profile
-          <Link to="/profile-create" className="btn btn-primary my-1">
-            Update Profile Now
-          </Link>
+          <DashboardAction />
         </Fragment>
       ) : (
         <Fragment>

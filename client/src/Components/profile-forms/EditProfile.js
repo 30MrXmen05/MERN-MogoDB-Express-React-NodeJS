@@ -2,9 +2,9 @@ import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../actions/profile";
 
-const CreateProfile = ({ createProfile, auth }) => {
+const EditProfile = ({ createProfile, auth }) => {
   const [formData, setFormData] = useState({
     company: "",
     website: "",
@@ -225,10 +225,13 @@ const CreateProfile = ({ createProfile, auth }) => {
 
 CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   token: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { createProfile })(CreateProfile);
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  CreateProfile,
+);
